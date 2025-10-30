@@ -1,149 +1,129 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+class MyApp extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: const WelcomePage(),
-    );
-  }
+  _MyAppState createState() => _MyAppState();
 }
 
-class WelcomePage extends StatefulWidget {
-  const WelcomePage({super.key});
+class _MyAppState extends State<MyApp> {
+  String currentLang = "kz";
 
-  @override
-  State<WelcomePage> createState() => _WelcomePageState();
-}
+  final greetings = {
+    "kz": "Сәлем!",
+    "ru": "Привет!",
+    "en": "Hello!"
+  };
 
-class _WelcomePageState extends State<WelcomePage> {
-  String _language = '🇰🇿 Қазақша';
+  final loginText = {
+    "kz": "Кіру",
+    "ru": "Войти",
+    "en": "Login"
+  };
 
-  void _changeLanguage() {
+  final registerText = {
+    "kz": "Тіркелу",
+    "ru": "Регистрация",
+    "en": "Register"
+  };
+
+  void switchLang() {
     setState(() {
-      if (_language == '🇰🇿 Қазақша') _language = '🇷🇺 Русский';
-      else if (_language == '🇷🇺 Русский') _language = '🇬🇧 English';
-      else _language = '🇰🇿 Қазақша';
+      if (currentLang == "kz") currentLang = "ru";
+      else if (currentLang == "ru") currentLang = "en";
+      else currentLang = "kz";
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFF1B5E20),
-      body: Stack(
-        children: [
-          // ☀️ Солнце
-          Positioned(
-            top: -100,
-            left: -60,
-            child: Container(
-              width: 400,
-              height: 400,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.orangeAccent,
-              ),
-            ),
-          ),
-
-          // 🌍 Кнопка языка сверху справа
-          Positioned(
-            top: 50,
-            right: 20,
-            child: ElevatedButton(
-              onPressed: _changeLanguage,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.orangeAccent,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              child: Text(
-                _language,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: Stack(
+          children: [
+            // 🔹 Фон
+            Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/leftsun.jpg"),
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
-          ),
-
-          // 🟡 Заголовок по центру
-          Center(
-            child: Text(
-              'СӘЛЕМ!',
-              style: TextStyle(
-                fontSize: 48,
-                fontWeight: FontWeight.bold,
-                color: Colors.orange[200],
+            // 🔹 Кнопка смены языка (вверху)
+            Positioned(
+              top: 50,
+              right: 20,
+              child: GestureDetector(
+                onTap: switchLang,
+                child: Image.asset(
+                  "assets/lang.jpg",
+                  width: 50,
+                  height: 50,
+                ),
               ),
             ),
-          ),
-
-          // 🔘 Кнопки "Тіркелу" и "Кіру" снизу рядом
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 80),
-              child: Row(
+            // 🔹 Центр
+            Center(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      // TODO: переход на экран регистрации
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.orangeAccent,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 35, vertical: 15),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                    child: const Text(
-                      'Тіркелу',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
+                  Text(
+                    greetings[currentLang]!,
+                    style: const TextStyle(
+                      fontSize: 48,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      shadows: [
+                        Shadow(color: Colors.black54, blurRadius: 6),
+                      ],
                     ),
                   ),
-                  const SizedBox(width: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      // TODO: переход на экран входа
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.yellow,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 35, vertical: 15),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
+                  const SizedBox(height: 60),
+                  // 🔹 Кнопки регистрации и входа
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.black.withOpacity(0.6),
+                          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        child: Text(
+                          registerText[currentLang]!,
+                          style: const TextStyle(fontSize: 18, color: Colors.white),
+                        ),
                       ),
-                    ),
-                    child: const Text(
-                      'Кіру',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
+                      const SizedBox(width: 20),
+                      ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.black.withOpacity(0.6),
+                          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        child: Text(
+                          loginText[currentLang]!,
+                          style: const TextStyle(fontSize: 18, color: Colors.white),
+                        ),
                       ),
-                    ),
-                  ),
+                    ],
+                  )
                 ],
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
