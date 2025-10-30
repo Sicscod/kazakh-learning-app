@@ -12,23 +12,9 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String currentLang = "kz";
 
-  final greetings = {
-    "kz": "Сәлем!",
-    "ru": "Привет!",
-    "en": "Hello!"
-  };
-
-  final loginText = {
-    "kz": "Кіру",
-    "ru": "Войти",
-    "en": "Login"
-  };
-
-  final registerText = {
-    "kz": "Тіркелу",
-    "ru": "Регистрация",
-    "en": "Register"
-  };
+  final greetings = {"kz": "СӘЛЕМ!", "ru": "ПРИВЕТ!", "en": "HELLO!"};
+  final loginText = {"kz": "Кіру", "ru": "Войти", "en": "Login"};
+  final registerText = {"kz": "Тіркелу", "ru": "Регистрация", "en": "Register"};
 
   void switchLang() {
     setState(() {
@@ -45,9 +31,9 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         body: Stack(
           children: [
-            // Фон
+            // 🔹 Фон
             Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage("assets/leftsun.jpg"),
                   fit: BoxFit.cover,
@@ -55,81 +41,127 @@ class _MyAppState extends State<MyApp> {
               ),
             ),
 
-            // Кнопка смены языка
+            // 🔹 Кнопка смены языка (lang.jpg)
             Positioned(
               top: 50,
               right: 20,
               child: GestureDetector(
                 onTap: switchLang,
-                child: Image.asset(
-                  "assets/lang.jpg",
-                  width: 50,
-                  height: 50,
+                child: Container(
+                  width: 31,
+                  height: 34,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(2),
+                    border: Border.all(color: Colors.black, width: 1),
+                    image: const DecorationImage(
+                      image: AssetImage("assets/lang.jpg"),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
               ),
             ),
 
-            // Центр
-            Center(
+            // 🔹 Текст “СӘЛЕМ!”
+            Positioned(
+              top: 326,
+              left: 178,
               child: AnimatedSwitcher(
-                duration: Duration(milliseconds: 500),
-                transitionBuilder: (child, animation) => FadeTransition(
-                  opacity: animation,
-                  child: child,
-                ),
-                child: Column(
+                duration: const Duration(milliseconds: 400),
+                child: Text(
+                  greetings[currentLang]!,
                   key: ValueKey(currentLang),
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      greetings[currentLang]!,
-                      style: const TextStyle(
-                        fontSize: 48,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        shadows: [
-                          Shadow(color: Colors.black54, blurRadius: 6),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 60),
+                  style: const TextStyle(
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.w800,
+                    fontSize: 48,
+                    color: Color(0xFF32734E),
+                    height: 1.0,
+                  ),
+                ),
+              ),
+            ),
 
-                    // Кнопки регистрации и входа
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black.withOpacity(0.6),
-                            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          child: Text(
-                            registerText[currentLang]!,
-                            style: const TextStyle(fontSize: 18, color: Colors.white),
-                          ),
-                        ),
-                        const SizedBox(width: 20),
-                        ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black.withOpacity(0.6),
-                            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          child: Text(
-                            loginText[currentLang]!,
-                            style: const TextStyle(fontSize: 18, color: Colors.white),
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
+            // 🔹 Прямоугольник под кнопкой "Тіркелу"
+            Positioned(
+              top: 398,
+              left: 178,
+              child: Container(
+                width: 197,
+                height: 47,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF32734E),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+            ),
+
+            // 🔹 Кнопка “Тіркелу”
+            Positioned(
+              top: 403,
+              left: 222,
+              child: GestureDetector(
+                onTap: () {},
+                child: Container(
+                  width: 186,
+                  height: 42,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFBB03B),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Text(
+                    registerText[currentLang]!,
+                    style: const TextStyle(
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w800,
+                      fontSize: 27,
+                      color: Colors.white,
+                      height: 1.0,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
+            // 🔹 Прямоугольник под кнопкой "Кіру"
+            Positioned(
+              top: 470,
+              left: 178,
+              child: Container(
+                width: 197,
+                height: 47,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF32734E),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+            ),
+
+            // 🔹 Кнопка “Кіру”
+            Positioned(
+              top: 475,
+              left: 249,
+              child: GestureDetector(
+                onTap: () {},
+                child: Container(
+                  width: 186,
+                  height: 42,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFBB03B),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Text(
+                    loginText[currentLang]!,
+                    style: const TextStyle(
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w800,
+                      fontSize: 27,
+                      color: Colors.white,
+                      height: 1.0,
+                    ),
+                  ),
                 ),
               ),
             ),
