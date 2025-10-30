@@ -45,7 +45,7 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         body: Stack(
           children: [
-            // 🔹 Фон
+            // Фон
             Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
@@ -54,7 +54,8 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
             ),
-            // 🔹 Кнопка смены языка (вверху)
+
+            // Кнопка смены языка
             Positioned(
               top: 50,
               right: 20,
@@ -67,59 +68,69 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
             ),
-            // 🔹 Центр
+
+            // Центр
             Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    greetings[currentLang]!,
-                    style: const TextStyle(
-                      fontSize: 48,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      shadows: [
-                        Shadow(color: Colors.black54, blurRadius: 6),
-                      ],
+              child: AnimatedSwitcher(
+                duration: Duration(milliseconds: 500),
+                transitionBuilder: (child, animation) => FadeTransition(
+                  opacity: animation,
+                  child: child,
+                ),
+                child: Column(
+                  key: ValueKey(currentLang),
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      greetings[currentLang]!,
+                      style: const TextStyle(
+                        fontSize: 48,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        shadows: [
+                          Shadow(color: Colors.black54, blurRadius: 6),
+                        ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 60),
-                  // 🔹 Кнопки регистрации и входа
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.black.withOpacity(0.6),
-                          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+                    const SizedBox(height: 60),
+
+                    // Кнопки регистрации и входа
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.black.withOpacity(0.6),
+                            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          child: Text(
+                            registerText[currentLang]!,
+                            style: const TextStyle(fontSize: 18, color: Colors.white),
                           ),
                         ),
-                        child: Text(
-                          registerText[currentLang]!,
-                          style: const TextStyle(fontSize: 18, color: Colors.white),
-                        ),
-                      ),
-                      const SizedBox(width: 20),
-                      ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.black.withOpacity(0.6),
-                          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+                        const SizedBox(width: 20),
+                        ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.black.withOpacity(0.6),
+                            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          child: Text(
+                            loginText[currentLang]!,
+                            style: const TextStyle(fontSize: 18, color: Colors.white),
                           ),
                         ),
-                        child: Text(
-                          loginText[currentLang]!,
-                          style: const TextStyle(fontSize: 18, color: Colors.white),
-                        ),
-                      ),
-                    ],
-                  )
-                ],
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
           ],
