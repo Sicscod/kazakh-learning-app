@@ -9,8 +9,18 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
+<<<<<<< HEAD
 class _MyAppState extends State<MyApp> {
   String currentLang = "kz";
+=======
+<<<<<<< HEAD
+
+
+class HomePage extends StatelessWidget {
+=======
+class WelcomePage extends StatefulWidget {
+  const WelcomePage({super.key});
+>>>>>>> fd9e0e37a2aee3b00172f8b2147f63a93d066e9c
 
   final greetings = {"kz": "СӘЛЕМ!", "ru": "ПРИВЕТ!", "en": "HELLO!"};
   final loginText = {"kz": "Кіру", "ru": "Войти", "en": "Login"};
@@ -24,6 +34,7 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+>>>>>>> a5b5d29b69f3c0216888454ca84e0dc52396f1d1
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
