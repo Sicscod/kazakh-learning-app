@@ -49,7 +49,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-flutter:
   uses-material-design: true
 
   assets:
